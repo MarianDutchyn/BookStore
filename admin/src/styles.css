@@ -1,0 +1,23 @@
+/* You can add global styles to this file, and also import other style files */
+@import '~@angular/material/prebuilt-themes/deeppurple-amber.css';
+
+body{
+  margin: 0;
+}
+
+.container{
+  width: 90%;
+  margin: auto;
+}
+
+mat-form-field{
+  width: 100%;
+}
+
+mat-select{
+  width: 100%;
+}
+
+mat-slide-toggle{
+  width: 100%;
+}
