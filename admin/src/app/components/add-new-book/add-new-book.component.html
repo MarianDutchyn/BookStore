@@ -1,6 +1,6 @@
 <div class="container">
   <div [hidden]="bookAdded">
-    <h3 style="margin-top: 30px;">New Book Information <span style="font-size:small">* is a required field</span></h3>
+    <h3 style="margin-top: 30px;">New Book Information</h3>
 
     <form (ngSubmit)="onSubmit()">
       <mat-grid-list cols="4" rowHeight="60px">
@@ -18,9 +18,9 @@
           </mat-form-field>
         </mat-grid-tile>
         <mat-grid-tile [colspan]="2" [rowspan]="1">
-          <mat-input-container>
+          <mat-form-field>
             <input matInput id="publisher" type="text" required [(ngModel)]="newBook.publisher" name="publisher" placeholder="Publisher">
-          </mat-input-container>
+          </mat-form-field>
         </mat-grid-tile>
       </mat-grid-list>
 
@@ -42,6 +42,12 @@
             <mat-option value="Arts &amp; Literature">Arts &amp; Literature</mat-option>
           </mat-select>
         </mat-grid-tile>
+        <mat-grid-tile [colspan]="2" [rowspan]="1">
+          <mat-select placeholder="Language" id="language" name="language" [(ngModel)]="newBook.language">
+            <mat-option value="ukrainian">Ukrainian</mat-option>
+            <mat-option value="english">English</mat-option>
+          </mat-select>
+        </mat-grid-tile>
       </mat-grid-list>
 
       <mat-grid-list cols="4" rowHeight="60px">
@@ -50,32 +56,10 @@
             <input matInput id="pageNumber" type="number" [(ngModel)]="newBook.numberOfPages" name="numberOfPages" step="1" placeholder="Number of Pages">
           </mat-form-field>
         </mat-grid-tile>
-      </mat-grid-list>
-
-      <mat-grid-list cols="4" rowHeight="60px">
-        <mat-grid-tile [colspan]="2" [rowspan]="1">
-          <mat-form-field>
-            <input matInput id="listPrice" type="number" [(ngModel)]="newBook.listPrice" name="listPrice" step="0.01" placeholder="List Price">
-          </mat-form-field>
-        </mat-grid-tile>
         <mat-grid-tile [colspan]="2" [rowspan]="1">
           <mat-form-field>
             <input matInput id="ourPrice" type="number" [(ngModel)]="newBook.ourPrice" name="ourPrice" step="0.01" placeholder="Our Price">
           </mat-form-field>
-        </mat-grid-tile>
-      </mat-grid-list>
-
-      <mat-grid-list cols="4" rowHeight="60px">
-        <mat-grid-tile [colspan]="2" [rowspan]="1">
-          <mat-form-field>
-            <input matInput id="shippingWeight" type="number" [(ngModel)]="newBook.shippingWeight" name="shippingWeight" step="0.01" placeholder="Shipping Weight">
-          </mat-form-field>&nbsp;ounces&nbsp;
-        </mat-grid-tile>
-        <mat-grid-tile [colspan]="2" [rowspan]="1">
-          <mat-select placeholder="Language" id="language" name="language" [(ngModel)]="newBook.language">
-            <mat-option value="english">Ukrainian</mat-option>
-            <mat-option value="spanish">English</mat-option>
-          </mat-select>
         </mat-grid-tile>
       </mat-grid-list>
 
@@ -108,7 +92,7 @@
       </mat-grid-list>
     </form>
   </div>
-  <div class="row" [hidden]="!bookAdded">
+  <div class="row text-center" [hidden]="!bookAdded">
     <h3>Book added successfully!</h3>
   </div>
 </div>

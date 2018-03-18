@@ -20,8 +20,6 @@ public class Book implements Serializable {
     private String language;
     private String category;
     private int numberOfPages;
-    private double shippingWeight;
-    private double listPrice;
     private double ourPrice;
     private boolean active=true;
     @Column(columnDefinition = "text")
@@ -92,22 +90,6 @@ public class Book implements Serializable {
 
     public void setNumberOfPages(int numberOfPages) {
         this.numberOfPages = numberOfPages;
-    }
-
-    public double getShippingWeight() {
-        return shippingWeight;
-    }
-
-    public void setShippingWeight(double shippingWeight) {
-        this.shippingWeight = shippingWeight;
-    }
-
-    public double getListPrice() {
-        return listPrice;
-    }
-
-    public void setListPrice(double listPrice) {
-        this.listPrice = listPrice;
     }
 
     public double getOurPrice() {

@@ -14,8 +14,8 @@ import java.util.Set;
 
 @Entity
 public class User implements UserDetails, Serializable {
-
     public static final long serialVervionUID = 369963L;
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
