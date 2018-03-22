@@ -1,0 +1,74 @@
+<div class="container">
+  <div class="row">
+    <div class="col-12" style="background-image: url(../../../assets/image/wood.png);">
+      <h2 class="section-headline"><span>My Account</span></h2>
+      <img src="../../../assets/image/logo.png" class="rounded float-left" style="padding: 0%; z-index:1;" />
+    </div>
+  </div>
+
+  <div class="row" style="margin-top:30px;">
+    <div class="col-3"></div>
+    <div class="col-9">
+      <mat-card>
+        <mat-card-content>
+          <mat-tab-group>
+            <mat-tab label="Login">
+              <div style="margin-top:20px;">
+                <div *ngIf="loginError" style="color:red;">
+                  Incorrect username or password.
+                </div>
+
+                <form (ngSubmit)="onLogin()">
+                  <div class="form-group">
+                    <label for ="username">Username *</label>
+                    <input type="text" class="form-control" id="username" name="username" [(ngModel)]="credential.username" required="required" autofocus="autofocus">
+                    <p style="color:#828282;">Enter your username</p>
+                  </div>
+                  <div class="form-group">
+                    <label for ="password">Password *</label>
+                    <input type="password" class="form-control" id="password" name="password" [(ngModel)]="credential.password" required="required" autofocus="autofocus">
+                    <p style="color:#828282;">Enter your password</p>
+                  </div>
+                  <button mat-raised-button type="submit" class="btn-primary">Log In</button>
+                </form>
+              </div>
+            </mat-tab>
+            <mat-tab label="New Account">
+              <div style="margin-top: 20px;">
+                <div class="alert alert-info" *ngIf="emailSent">An email has been sent to the email address you just registered. Please validate your email adderss and update your password info.</div>
+                <form (ngSubmit)="onNewAccount()">
+                  <div class="form-group">
+                    <label for="newUsername">Username *</label>&nbsp;<span *ngIf="usernameExists" style="color:red;">Username already exists. Choose a different one.</span>
+                    <input type="text" class="form-control" id="newUsername" name="username" [(ngModel)]="username" required="required" >
+                    <p style="color:#828282;">Enter your username</p>
+                  </div>
+                  <div class="form-group">
+                    <label for="email">Email Address *</label>&nbsp;<span *ngIf="emailExists" style="color:red;">Email already exists. Choose a different one.</span>
+                    <input type="email" class="form-control" id="email" name="email" [(ngModel)]="email" required="required" >
+                    <p style="color:#828282;">A valid e-mail address. All e-mails from the system will be sent to this address.</p>
+                  </div>
+                  <button mat-raised-button type="submit" class="btn-primary">Create new account</button>
+                </form>
+              </div>
+            </mat-tab>
+            <mat-tab label="Forget Password">
+              <div style="margin-top: 20px;">
+                <div class="alert alert-warning" *ngIf="emailNotExists">Email doesn't exists.</div>
+                <div class="alert alert-success" *ngIf="forgetPasswordEmailSent">Email sent.</div>
+                <form (ngSubmit)="onForgetPassword()">
+                  <div class="form-group">
+                    <label for="recoverEmail">Your Email Address *</label>
+                    <input type="email" class="form-control" id="recoverEmail" name="recoverEmail" [(ngModel)]="recoverEmail" required="required" >
+                    <p style="color:#828282;">Enter your registered email address.</p>
+                  </div>
+                  <button mat-raised-button type="submit" class="btn-primary">Submit</button>
+                </form>
+              </div>
+            </mat-tab>
+          </mat-tab-group>
+        </mat-card-content>
+      </mat-card>
+    </div>
+  </div>
+
+</div>

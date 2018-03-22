@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { Book} from '../../models/book';
-import { Router} from '@angular/router';
-import { BookListService} from '../../services/book-list.service';
-import { MatDialog, MatDialogRef} from '@angular/material';
-import {RemoveBookService} from '../../services/remove-book.service';
+import { Book } from '../../models/book';
+import { Router } from '@angular/router';
+import { BookListService } from '../../services/book-list.service';
+import { MatDialog, MatDialogRef } from '@angular/material';
+import {RemoveBookService } from '../../services/remove-book.service';
 
 @Component({
   selector: 'app-book-list',

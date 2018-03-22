@@ -66,7 +66,7 @@ public class BookController {
     }
 
     @RequestMapping(value = "/update/image", method = RequestMethod.POST)
-    public ResponseEntity updateImage(@RequestParam("id") int id, HttpServletResponse response, HttpServletRequest request) {
+    public ResponseEntity updateImage(@RequestParam("id") int id, HttpServletRequest request, HttpServletResponse response) {
         try {
             Book book = bookService.findOne(id);
             MultipartHttpServletRequest multipartRequest = (MultipartHttpServletRequest) request;
