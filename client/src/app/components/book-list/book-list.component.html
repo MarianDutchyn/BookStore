@@ -1,0 +1,47 @@
+<div class="container">
+  <div class="row">
+    <div class="col-12" style="background-image: url(../../../assets/image/wood.png);">
+      <h2 class="section-headline"><span>Book List</span></h2>
+      <img src="../../../assets/image/logo.png" class="rounded float-left" style="padding: 0%; z-index:1;" />
+    </div>
+  </div>
+
+  <div class="row" style="margin-top: 30px;">
+    <div class="col-md-3"></div>
+    <div class="col-md-9">
+      <table datatable class="table-hover" [dtTrigger]="dtTrigger">
+        <thead>
+        <tr>
+          <th></th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr *ngFor = "let book of bookList">
+          <td>
+            <div class="row" style="margin-bottom: 30px;">
+              <div class="col-md-3">
+                <a (click)="onSelect(book)" style="cursor:pointer;">
+                  <img class="img-fluid" src="{{serverPath}}/image/book/{{book.id}}.png" />
+                </a>
+              </div>
+              <div class="col-md-9">
+                <h4 (click)="onSelect(book)" style="margin-top:20px; cursor:pointer;">{{book.title}}
+                </h4>
+                <span>{{book.publicationDate}}</span>
+                <p>{{book.author}}</p>
+                <a (click)="onSelect(book)" style="cursor:pointer;"><span>{{book.format | uppercase}}</span></a>
+                <span>{{book.numberOfPages}}</span><span> pages</span>
+                <br />
+                <a (click)="onSelect(book)"><span style="font-size: x-large; color:#db3208">$<span>{{book.ourPrice | number : '1.2-2'}}</span></span></a>
+                <span style="text-decoration:line-through;">$<span>{{book.listPrice | number : '1.2-2'}}</span></span>
+                <p>{{book.description | slice:0:500}}</p>
+              </div>
+            </div>
+          </td>
+        </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+

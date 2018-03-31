@@ -32,10 +32,12 @@ public class LoginController {
 
         return Collections.singletonMap("token", session.getId());
     }
+
     @RequestMapping("/checkSession")
-    public ResponseEntity checkSession(){
+    public ResponseEntity checkSession() {
         return new ResponseEntity("session", HttpStatus.OK);
     }
+
     @RequestMapping(value = "/user/logout", method = RequestMethod.POST)
     public ResponseEntity logout() {
         SecurityContextHolder.clearContext();

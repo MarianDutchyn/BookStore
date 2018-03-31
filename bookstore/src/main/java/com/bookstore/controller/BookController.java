@@ -49,7 +49,7 @@ public class BookController {
         }
     }
 
-    @RequestMapping("bookList")
+    @RequestMapping("/bookList")
     public List<Book> getBookList() {
       return bookService.findAll();
     }
@@ -93,5 +93,11 @@ public class BookController {
         String fileName = id+".png";
         Files.delete(Paths.get("src/main/resources/static/image/book/"+ fileName));
         return new ResponseEntity("Remove Success!", HttpStatus.OK);
+    }
+
+    @RequestMapping(value = "/search", method = RequestMethod.POST)
+    public List<Book> searchByTitle(@RequestBody String keyword) {
+        List<Book> bookList = bookService.searchByTitle(keyword);
+        return bookList;
     }
 }

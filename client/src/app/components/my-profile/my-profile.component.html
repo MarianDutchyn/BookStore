@@ -1,0 +1,86 @@
+<div class="container">
+  <div class="row">
+    <div class="col-12" style="background-image: url(../../../assets/image/wood.png);">
+      <h2 class="section-headline"><span>My Profile</span></h2>
+      <img src="../../../assets/image/logo.png" class="rounded float-left" style="padding: 0%; z-index:1;" />
+    </div>
+  </div>
+  <div *ngIf="!dataFetched">
+    <div class="row">
+      <div class="col">
+        <mat-spinner style="margin: auto"></mat-spinner>
+      </div>
+    </div>
+  </div>
+  <div class="row" style="margin-top: 30px">
+    <div *ngIf ="dataFetched" style="margin: auto">
+      <div class="col-sm">
+        <mat-card>
+          <mat-card-content>
+            <mat-tab-group>
+              <mat-tab label="Edit">
+                <div style="margin-top: 20px;">
+                  <div class="alert alert-danger" *ngIf="incorrectPassword">
+                    <strong>Incorrect Password!</strong> Please enter the correct password for the current user.
+                  </div>
+                  <div class="alert alert-success" *ngIf="updateSuccess">
+                    <strong>Update Success!</strong>
+                  </div>
+                </div>
+                <form (ngSubmit)="onUpdateUserInfo()">
+                  <input type="hidden" name="id" [(ngModel)]="user.id" />
+                  <div class="bg-info" *ngIf="updateUserInfo">User info updated.</div>
+                  <div class="form-group">
+                    <div class="row">
+                      <div class="col-6">
+                        <label for="firstName">First Name</label>
+                        <input type="text" class="form-control" id="firstName" name="firstName" [(ngModel)]="user.firstName" />
+                      </div>
+                      <div class="col-6">
+                        <label for="lastName">Last Name</label>
+                        <input type="text" class="form-control" id="lastName" name="lastName" [(ngModel)]="user.lastName" />
+                      </div>
+                    </div>
+                  </div>
+                  <div class="form-group">
+                    <label for="username">
+                      Username *
+                    </label>&nbsp;<span *ngIf="usernameExists" style="color:red">Username already exists. Choose a different one.</span>
+                    <input required="required" type="text" class="form-control" id="username" name="username" [(ngModel)]="user.username" />
+                  </div>
+                  <div class="form-group">
+                    <label for="currentPassword">
+                      Current Password
+                    </label>
+                    <input type="password" class="form-control" id="currentPassword" name="password" [(ngModel)]="currentPassword" />
+                    <p style="color:#828282;">Enter your current password to change the E-mail address or Password.</p>
+                  </div>
+                  <div class="form-group">
+                    <label for="email">
+                      Email Address *
+                    </label>&nbsp;<span *ngIf="emailExists" style="color:red">Email already exists. Choose a different one.</span>
+                    <input required="required" type="email" class="form-control" id="email" name="email" [(ngModel)]="user.email" />
+                    <p style="color:#828282;">A valid e-mail address. All e-mails from the system will be sent to this address.</p>
+                  </div>
+                  <div class="form-group">
+                    <label for="txtNewPassword">
+                      New Password *
+                    </label>&nbsp;<span id="checkPasswordMatch" style="color:red;"></span>
+                    <input type="password" class="form-control" id="txtNewPassword" name="txtNewPassword" [(ngModel)]="newPassword" />
+                  </div>
+                  <div class="form-group">
+                    <label for="txtConfirmPassword">
+                      Confirm New Password *
+                    </label>
+                    <input type="password" class="form-control" id="txtConfirmPassword" name="txtNewPassword"  />
+                  </div>
+                  <button mat-raised-button type="submit" class="mat-primary" id="udpateuserInfoButton">Save</button>
+                </form>
+              </mat-tab>
+            </mat-tab-group>
+          </mat-card-content>
+        </mat-card>
+      </div>
+    </div>
+  </div>
+</div>

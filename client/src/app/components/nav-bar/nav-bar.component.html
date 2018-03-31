@@ -9,11 +9,11 @@
   <div class="collapse navbar-collapse" id="navbarSupportedContent">
     <ul class="navbar-nav mr-auto">
       <li class="nav-item active">
-        <a mat-button class="nav-link" routerLink="/bookList">BOOK</a>
+        <a mat-button class="nav-link" routerLink="/bookList">BOOKS</a>
       </li>
-      <form (ngSubmit)="onSearcyByTitle()" class="form-inline my-2 my-lg-0">
+      <form (ngSubmit)="onSearchByTitle()" class="form-inline my-2 my-lg-0">
         <div class="form-group">
-          <input type="text" name="searcyByTitle" [(ngModel)]="keyboard" class="form-control" placeholder="Book Title" />
+          <input type="text" name="searcyByTitle" [(ngModel)]="keyword" class="form-control" placeholder="Book Title" />
         </div>
         <button type="submit" class="btn btn-outline-success my-2 my-sm-0">Search</button>
       </form>
