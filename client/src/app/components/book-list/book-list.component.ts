@@ -1,7 +1,7 @@
 import {Component, OnInit, ViewChild} from '@angular/core';
 import {BookService} from '../../services/book.service';
 import {AppConst} from '../../constants/app.const';
-import {Book} from '../../models/Book';
+import {Book} from '../../models/book';
 import {Subject} from 'rxjs/Subject';
 import {ActivatedRoute, Router} from '@angular/router';
 

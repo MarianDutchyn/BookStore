@@ -32,6 +32,9 @@ public class User implements UserDetails, Serializable {
     @JsonIgnore
     private Set<UserRole> userRoles = new HashSet<>();
 
+    @OneToOne( cascade = CascadeType.ALL, mappedBy = "user")
+    private ShoppingCart shoppingCart;
+
     public int getId() {
         return id;
     }
@@ -100,6 +103,14 @@ public class User implements UserDetails, Serializable {
 
     public void setUserRoles(Set<UserRole> userRoles) {
         this.userRoles = userRoles;
+    }
+
+    public ShoppingCart getShoppingCart() {
+        return shoppingCart;
+    }
+
+    public void setShoppingCart(ShoppingCart shoppingCart) {
+        this.shoppingCart = shoppingCart;
     }
 
     @Override

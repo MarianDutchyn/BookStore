@@ -1,7 +1,7 @@
 <div class="container">
   <div class="row">
     <div class="col-12" style="background-image: url(../../../assets/image/wood.png);">
-      <h2 class="section-headline"><span>Book List</span></h2>
+      <h2 class="section-headline"><span>{{book.title}}</span></h2>
       <img src="../../../assets/image/logo.png" class="rounded float-left" style="padding: 0%; z-index:1;" />
     </div>
   </div>
@@ -11,7 +11,7 @@
       <div class="col-3">
         <a routerLink="/bookList">Back to book list</a>
         <br />
-        <img class="img-fluid" src="{{serverPath}}/image/book/{{book.id}}.png" />
+        <img class="img-fluid" style="height: 350px" [src]="'http://localhost:8080/image/book/'+book.id+'.png'" />
       </div>
       <div class="col-9">
         <h3><span *ngIf="addBookSuccess" style="color:forestgreen"><i class="fa fa-check" style="color:forestgreen"></i>Added to cart.</span></h3>

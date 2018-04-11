@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import {AppConst} from '../constants/app.const';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
-import {User} from '../models/User';
+import {User} from '../models/user';
 
 @Injectable()
 export class UserService {
