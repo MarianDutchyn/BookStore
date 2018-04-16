@@ -17,11 +17,13 @@ import { MyProfileComponent } from './components/my-profile/my-profile.component
 import { BookListComponent } from './components/book-list/book-list.component';
 import { ViewBookComponent } from './components/view-book/view-book.component';
 import { ShoppingCartComponent } from './components/shopping-cart/shopping-cart.component';
+import { UserShippingComponent } from './components/user-shipping/user-shipping.component';
 
 import {LoginService} from './services/login.service';
 import {UserService} from './services/user.service';
 import {BookService} from './services/book.service';
 import {CartService} from './services/cart.service';
+import {ShippingService} from './services/shipping.service';
 
 
 @NgModule({
@@ -33,7 +35,8 @@ import {CartService} from './services/cart.service';
     MyProfileComponent,
     BookListComponent,
     ViewBookComponent,
-    ShoppingCartComponent
+    ShoppingCartComponent,
+    UserShippingComponent
   ],
   imports: [
     BrowserModule,
@@ -49,7 +52,8 @@ import {CartService} from './services/cart.service';
     LoginService,
     UserService,
     BookService,
-    CartService
+    CartService,
+    ShippingService
   ],
   bootstrap: [AppComponent]
 })

@@ -77,6 +77,64 @@
                   <button mat-raised-button type="submit" class="mat-primary" id="udpateuserInfoButton">Save</button>
                 </form>
               </mat-tab>
+              <mat-tab label="Shipping">
+                <br>
+                <br>
+                <div>
+                  <p *ngIf="defaultShippingSet">Default shipping set successfully!</p>
+                  <mat-tab-group (selectedIndexChange)="selectedShippingChange($event)" [selectedIndex]="selectedShippingTab">
+                    <mat-tab label="List of Shipping Addresses">
+                      <form (ngSubmit)="setDefaultShipping()" method="post">
+                        <table class="table">
+                          <thead>
+                          <tr>
+                            <th>Default</th>
+                            <th>Shipping Address</th>
+                            <th>Operations</th>
+                          </tr>
+                          </thead>
+                          <tbody>
+                          <tr *ngFor="let userShipping of userShippingList">
+                            <td>
+                              <input type="radio" name="defaultUserShippingId" [(ngModel)]="defaultShippingId" [value]="userShipping.id" />
+                              <span>default</span>
+                            </td>
+                            <td>{{userShipping.street}}, {{userShipping.city}}</td>
+                            <td>
+                              <a mat-button (click)="onUpdateShipping(userShipping)"><i class="fa fa-pencil"></i></a>
+                              <a mat-button (click)="onRemoveShipping(userShipping.id)"><i class="fa fa-times"></i></a>
+                            </td>
+                          </tr>
+                          </tbody>
+                        </table>
+                        <button mat-raised-button color="primary" type="submit">Save</button>
+                      </form>
+                    </mat-tab>
+                    <mat-tab label="Add(Update) Shipping Address">
+                      <form (ngSubmit)="onNewShipping()" method="post">
+                        <div class="bg-info" *ngIf="updateUserShipping">User info updated.</div>
+                        <input hidden="hidden" name="id" [(ngModel)]="userShipping.id" />
+                        <div class="form-group">
+                          <label for="shippingname">* Name</label>
+                          <input type="text" class="form-control" id="shippingName" placeholder="Receiver Name" name="userShippingName" required="required" [(ngModel)]="userShipping.reciverName" />
+                        </div>
+                        <div class="form-group">
+                          <label for="shippingAddress">* Street Address</label>
+                          <input type="text" class="form-control" id="shippingAddress" placeholder="Street Address" name="userShippingStreet1" required="required" [(ngModel)]="userShipping.street" />
+                        </div>
+                        <div class="form-group">
+                          <label for="shippingCity">* City</label>
+                          <input type="text" class="form-control" id="shippingCity" placeholder="Your Shipping City" name="userShippingCity" required="required" [(ngModel)]="userShipping.city" />
+                        </div>
+                        <hr />
+                        <button mat-raised-button type="submit" class="mat-primary">
+                          Save All
+                        </button>
+                      </form>
+                    </mat-tab>
+                  </mat-tab-group>
+                </div>
+              </mat-tab>
             </mat-tab-group>
           </mat-card-content>
         </mat-card>

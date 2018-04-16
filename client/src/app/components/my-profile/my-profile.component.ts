@@ -4,6 +4,8 @@ import {User} from '../../models/user';
 import {UserService} from '../../services/user.service';
 import {LoginService} from '../../services/login.service';
 import {Router} from '@angular/router';
+import {Shipping} from '../../models/shipping';
+import {ShippingService} from '../../services/shipping.service';
 
 @Component({
   selector: 'app-my-profile',
@@ -21,8 +23,14 @@ export class MyProfileComponent implements OnInit {
   private newPassword: string;
   private incorrectPassword: boolean;
   private updateSuccess: boolean;
+  private selectedShippingTab = 0;
+  private defaultShippingSet: boolean;
+  private defaultShippingId: number;
+  private updateUserShipping: boolean;
+  private userShipping: Shipping = new Shipping();
+  private userShippingList: Shipping [];
 
-  constructor(private userService: UserService, private loginService: LoginService, private router: Router) { }
+  constructor(private userService: UserService, private loginService: LoginService, private router: Router, private shippingService: ShippingService) { }
 
     onUpdateUserInfo() {
     this.userService.onUpdateUserInfo(this.user, this.newPassword, this.currentPassword).subscribe(
@@ -52,10 +60,70 @@ export class MyProfileComponent implements OnInit {
     );
     }
 
+    selectedShippingChange(val: number) {
+    this.selectedShippingTab = val;
+    }
+
+
+  onNewShipping() {
+    this.shippingService.newShipping(this.userShipping).subscribe(
+      res => {
+        this.getCurrentUser();
+        this.getShippingList();
+        this.selectedShippingTab = 0;
+      },
+      error => {
+        console.log(error);
+      }
+    );
+  }
+
+  getShippingList() {
+    this.shippingService.getShippingList().subscribe(
+      res => {
+        this.userShippingList = res;
+      },
+      error => {
+        console.log(error);
+      }
+    );
+  }
+
+  onUpdateShipping(shipping: Shipping) {
+    this.userShipping = shipping;
+    this.selectedShippingTab = 1;
+  }
+
+  onRemoveShipping(id: number) {
+    this.shippingService.remove(id).subscribe(
+      res => {
+        this.getCurrentUser();
+        this.getShippingList();
+      },
+      error => {
+        console.log(error);
+      }
+    );
+  }
+
+  setDefaultShipping() {
+    this.defaultShippingSet = false;
+    this.shippingService.setDefaultShipping(this.defaultShippingId).subscribe(
+      res => {
+        this.getCurrentUser();
+        this.defaultShippingSet = true;
+      },
+      error => {
+        console.log(error);
+      }
+    );
+  }
+
   ngOnInit() {
     this.loginService.checkSessoin().subscribe(
       res => {
         this.loggedIn = true;
+        this.getShippingList();
       },
       error => {
         console.log(error);

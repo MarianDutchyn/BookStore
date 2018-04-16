@@ -10,6 +10,7 @@ import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Collection;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 @Entity
@@ -32,8 +33,11 @@ public class User implements UserDetails, Serializable {
     @JsonIgnore
     private Set<UserRole> userRoles = new HashSet<>();
 
-    @OneToOne( cascade = CascadeType.ALL, mappedBy = "user")
+    @OneToOne(cascade = CascadeType.ALL, mappedBy = "user")
     private ShoppingCart shoppingCart;
+
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "user")
+    private List<Shipping> shippingList;
 
     public int getId() {
         return id;
@@ -111,6 +115,14 @@ public class User implements UserDetails, Serializable {
 
     public void setShoppingCart(ShoppingCart shoppingCart) {
         this.shoppingCart = shoppingCart;
+    }
+
+    public List<Shipping> getShippingList() {
+        return shippingList;
+    }
+
+    public void setShippingList(List<Shipping> shippingList) {
+        this.shippingList = shippingList;
     }
 
     @Override
