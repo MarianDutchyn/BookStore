@@ -1,11 +1,11 @@
 package com.bookstore.service.impl;
 
-import com.bookstore.entity.Shipping;
+import com.bookstore.entity.UserShipping;
 import com.bookstore.entity.ShoppingCart;
 import com.bookstore.entity.User;
 import com.bookstore.entity.security.UserRole;
 import com.bookstore.repository.RoleRepository;
-import com.bookstore.repository.ShippingRepository;
+import com.bookstore.repository.UserShippingRepository;
 import com.bookstore.repository.UserRepository;
 import com.bookstore.service.UserService;
 import org.slf4j.Logger;
@@ -27,7 +27,7 @@ public class UserServiceImpl implements UserService {
     @Autowired
     private RoleRepository roleRepository;
     @Autowired
-    private ShippingRepository shippingRepository;
+    private UserShippingRepository userShippingRepository;
 
     @Transactional
     public User createUser(User user, Set<UserRole> userRoles) {
@@ -69,25 +69,25 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public void updateShipping(Shipping shipping, User user) {
-        shipping.setUser(user);
-        shipping.setDefaultShipping(true);
-        user.getShippingList().add(shipping);
+    public void updateShipping(UserShipping userShipping, User user) {
+        userShipping.setUser(user);
+        userShipping.setDefaultShipping(true);
+        user.getUserShippingList().add(userShipping);
         userRepository.save(user);
     }
 
     @Override
     public void setDefaultShipping(int shippingId, User user) {
-        List<Shipping> shippingList = (List<Shipping>) shippingRepository.findAll();
+        List<UserShipping> userShippingList = (List<UserShipping>) userShippingRepository.findAll();
 
-        for (Shipping shipping: shippingList) {
-            if (shipping.getId() == shippingId){
-                shipping.setDefaultShipping(true);
-                shippingRepository.save(shipping);
+        for (UserShipping userShipping : userShippingList) {
+            if (userShipping.getId() == shippingId){
+                userShipping.setDefaultShipping(true);
+                userShippingRepository.save(userShipping);
             }
             else {
-                shipping.setDefaultShipping(false);
-                shippingRepository.save(shipping);
+                userShipping.setDefaultShipping(false);
+                userShippingRepository.save(userShipping);
             }
         }
     }

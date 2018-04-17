@@ -37,7 +37,7 @@ public class User implements UserDetails, Serializable {
     private ShoppingCart shoppingCart;
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "user")
-    private List<Shipping> shippingList;
+    private List<UserShipping> userShippingList;
 
     public int getId() {
         return id;
@@ -117,12 +117,12 @@ public class User implements UserDetails, Serializable {
         this.shoppingCart = shoppingCart;
     }
 
-    public List<Shipping> getShippingList() {
-        return shippingList;
+    public List<UserShipping> getUserShippingList() {
+        return userShippingList;
     }
 
-    public void setShippingList(List<Shipping> shippingList) {
-        this.shippingList = shippingList;
+    public void setUserShippingList(List<UserShipping> userShippingList) {
+        this.userShippingList = userShippingList;
     }
 
     @Override

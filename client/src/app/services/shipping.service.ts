@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
-import {AppConst} from "../constants/app.const";
-import {Shipping} from "../models/shipping";
+import {AppConst} from '../constants/app.const';
+import {UserShipping} from '../models/user-shipping';
 
 @Injectable()
 export class ShippingService {
@@ -9,7 +9,7 @@ export class ShippingService {
 
   constructor(private http: HttpClient) { }
 
-  newShipping(shipping: Shipping) {
+  newShipping(shipping: UserShipping) {
     let url = this.serverPath+"/shipping/add";
 
     let headers = new HttpHeaders({
@@ -21,14 +21,14 @@ export class ShippingService {
   }
 
   getShippingList() {
-    let url = this.serverPath+"/shipping/getShippingList";
+    let url = this.serverPath+"/shipping/getUserShippingList";
 
     let headers = new HttpHeaders({
       'Content-Type' : 'application/json',
       'x-auth-token' : localStorage.getItem('xAuthToken')
     });
 
-    return this.http.get<Shipping[]>(url,{headers: headers});
+    return this.http.get<UserShipping[]>(url,{headers: headers});
   }
 
   remove(id: number) {

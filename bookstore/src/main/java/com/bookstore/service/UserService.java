@@ -1,6 +1,6 @@
 package com.bookstore.service;
 
-import com.bookstore.entity.Shipping;
+import com.bookstore.entity.UserShipping;
 import com.bookstore.entity.User;
 import com.bookstore.entity.security.UserRole;
 
@@ -13,7 +13,7 @@ public interface UserService {
     User findByEmail(String email);
     User findById(int id);
     User save(User user);
-    void updateShipping(Shipping shipping, User user);
+    void updateShipping(UserShipping userShipping, User user);
     void setDefaultShipping(int shippingId, User user);
 
 }

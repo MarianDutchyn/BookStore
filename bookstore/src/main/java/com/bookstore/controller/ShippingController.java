@@ -1,8 +1,8 @@
 package com.bookstore.controller;
 
-import com.bookstore.entity.Shipping;
+import com.bookstore.entity.UserShipping;
 import com.bookstore.entity.User;
-import com.bookstore.service.ShippingService;
+import com.bookstore.service.UserShippingService;
 import com.bookstore.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -20,27 +20,27 @@ import java.util.List;
 public class ShippingController {
 
     @Autowired
-    private ShippingService shippingService;
+    private UserShippingService userShippingService;
     @Autowired
     private UserService userService;
 
     @RequestMapping(value = "/add", method = RequestMethod.POST)
-    public ResponseEntity addNewUserShipping(@RequestBody Shipping shipping, Principal principal) {
+    public ResponseEntity addNewUserShipping(@RequestBody UserShipping userShipping, Principal principal) {
         User user = userService.findByUsername(principal.getName());
-        userService.updateShipping(shipping, user);
+        userService.updateShipping(userShipping, user);
         return new ResponseEntity(HttpStatus.OK);
     }
 
-    @RequestMapping("/getShippingList")
-    public List<Shipping> getShippingList(Principal principal) {
+    @RequestMapping("/getUserShippingList")
+    public List<UserShipping> getShippingList(Principal principal) {
         User user = userService.findByUsername(principal.getName());
-        List<Shipping> shippingList = user.getShippingList();
-        return shippingList;
+        List<UserShipping> userShippingList = user.getUserShippingList();
+        return userShippingList;
     }
 
     @RequestMapping(value = "/remove", method = RequestMethod.POST)
     public ResponseEntity removeShipping(@RequestBody String id, Principal principal) {
-        shippingService.remove(Integer.parseInt(id));
+        userShippingService.remove(Integer.parseInt(id));
         return new ResponseEntity(HttpStatus.OK);
     }
 

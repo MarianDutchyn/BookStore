@@ -4,7 +4,7 @@ import {User} from '../../models/user';
 import {UserService} from '../../services/user.service';
 import {LoginService} from '../../services/login.service';
 import {Router} from '@angular/router';
-import {Shipping} from '../../models/shipping';
+import {UserShipping} from '../../models/user-shipping';
 import {ShippingService} from '../../services/shipping.service';
 
 @Component({
@@ -23,12 +23,14 @@ export class MyProfileComponent implements OnInit {
   private newPassword: string;
   private incorrectPassword: boolean;
   private updateSuccess: boolean;
+
   private selectedShippingTab = 0;
   private defaultShippingSet: boolean;
   private defaultShippingId: number;
   private updateUserShipping: boolean;
-  private userShipping: Shipping = new Shipping();
-  private userShippingList: Shipping [];
+  private userShipping: UserShipping = new UserShipping();
+  private userShippingList: UserShipping[];
+
 
   constructor(private userService: UserService, private loginService: LoginService, private router: Router, private shippingService: ShippingService) { }
 
@@ -89,7 +91,7 @@ export class MyProfileComponent implements OnInit {
     );
   }
 
-  onUpdateShipping(shipping: Shipping) {
+  onUpdateShipping(shipping: UserShipping) {
     this.userShipping = shipping;
     this.selectedShippingTab = 1;
   }
@@ -118,6 +120,7 @@ export class MyProfileComponent implements OnInit {
       }
     );
   }
+
 
   ngOnInit() {
     this.loginService.checkSessoin().subscribe(
