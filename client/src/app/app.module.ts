@@ -24,6 +24,7 @@ import {UserService} from './services/user.service';
 import {BookService} from './services/book.service';
 import {CartService} from './services/cart.service';
 import {ShippingService} from './services/shipping.service';
+import {PaymentService} from './services/payment.service';
 
 
 @NgModule({
@@ -53,7 +54,8 @@ import {ShippingService} from './services/shipping.service';
     UserService,
     BookService,
     CartService,
-    ShippingService
+    ShippingService,
+    PaymentService
   ],
   bootstrap: [AppComponent]
 })

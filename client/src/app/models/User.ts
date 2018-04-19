@@ -1,4 +1,5 @@
 import {UserShipping} from "./user-shipping";
+import {UserPayment} from "./user-payment";
 
 export class User {
   public id: number;
@@ -10,4 +11,5 @@ export class User {
   public phone: string;
   public enabled: boolean;
   public shippingList: UserShipping[];
+  public paymentList: UserPayment [];
 }

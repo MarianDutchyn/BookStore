@@ -1,12 +1,8 @@
 package com.bookstore.service.impl;
 
-import com.bookstore.entity.UserShipping;
-import com.bookstore.entity.ShoppingCart;
-import com.bookstore.entity.User;
+import com.bookstore.entity.*;
 import com.bookstore.entity.security.UserRole;
-import com.bookstore.repository.RoleRepository;
-import com.bookstore.repository.UserShippingRepository;
-import com.bookstore.repository.UserRepository;
+import com.bookstore.repository.*;
 import com.bookstore.service.UserService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -15,6 +11,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 @Service
@@ -28,6 +25,10 @@ public class UserServiceImpl implements UserService {
     private RoleRepository roleRepository;
     @Autowired
     private UserShippingRepository userShippingRepository;
+    @Autowired
+    private UserBillingRepository userBillingRepository;
+    @Autowired
+    private UserPaymentRepository userPaymentRepository;
 
     @Transactional
     public User createUser(User user, Set<UserRole> userRoles) {
@@ -39,6 +40,8 @@ public class UserServiceImpl implements UserService {
                 roleRepository.save(ur.getRole());
             }
             user.getUserRoles().addAll(userRoles);
+            user.setUserShippingList(new ArrayList<UserShipping>());
+            user.setUserPaymentList(new ArrayList<UserPayment>());
             ShoppingCart shoppingCart = new ShoppingCart();
             shoppingCart.setUser(user);
             user.setShoppingCart(shoppingCart);
@@ -88,6 +91,38 @@ public class UserServiceImpl implements UserService {
             else {
                 userShipping.setDefaultShipping(false);
                 userShippingRepository.save(userShipping);
+            }
+        }
+    }
+
+
+    @Override
+    public void updateUserPayment(UserPayment userPayment, UserBilling userBilling, User user) {
+        userPayment.setUser(user);
+        userPayment.setUserBilling(userBilling);
+        userPayment.setDefaultPayment(true);
+        System.out.println("UserBilling: " +userBilling);
+        System.out.println(userPayment);
+        userBilling.setUserPayment(userPayment);
+        user.getUserPaymentList().add(userPayment);
+        userPaymentRepository.save(userPayment);
+        userBillingRepository.save(userBilling);
+        userRepository.save(user);
+
+    }
+
+    @Override
+    public void setDefaultUserPayment(int userPaymentId, User user) {
+        List<UserPayment> userPaymentList = (List<UserPayment>) userPaymentRepository.findAll();
+
+        for (UserPayment userPayment: userPaymentList) {
+            if (userPayment.getId() == userPaymentId){
+                userPayment.setDefaultPayment(true);
+                userPaymentRepository.save(userPayment);
+            }
+            else {
+                userPayment.setDefaultPayment(false);
+                userPaymentRepository.save(userPayment);
             }
         }
     }

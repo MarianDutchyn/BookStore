@@ -3,5 +3,5 @@ export class UserShipping {
   public reciverName: string;
   public street: string;
   public city: string;
-  public default: boolean;
+  public defaultShipping: boolean;
 }

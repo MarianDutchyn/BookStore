@@ -39,6 +39,10 @@ public class User implements UserDetails, Serializable {
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "user")
     private List<UserShipping> userShippingList;
 
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "user")
+    @JsonIgnore
+    private List<UserPayment> userPaymentList;
+
     public int getId() {
         return id;
     }
@@ -123,6 +127,14 @@ public class User implements UserDetails, Serializable {
 
     public void setUserShippingList(List<UserShipping> userShippingList) {
         this.userShippingList = userShippingList;
+    }
+
+    public List<UserPayment> getUserPaymentList() {
+        return userPaymentList;
+    }
+
+    public void setUserPaymentList(List<UserPayment> userPaymentList) {
+        this.userPaymentList = userPaymentList;
     }
 
     @Override

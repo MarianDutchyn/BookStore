@@ -6,6 +6,9 @@ import {LoginService} from '../../services/login.service';
 import {Router} from '@angular/router';
 import {UserShipping} from '../../models/user-shipping';
 import {ShippingService} from '../../services/shipping.service';
+import {UserPayment} from '../../models/user-payment';
+import {UserBilling} from '../../models/user-billing';
+import {PaymentService} from "../../services/payment.service";
 
 @Component({
   selector: 'app-my-profile',
@@ -25,53 +28,78 @@ export class MyProfileComponent implements OnInit {
   private updateSuccess: boolean;
 
   private selectedShippingTab = 0;
+  private selectedBillingTab = 0;
   private defaultShippingSet: boolean;
   private defaultShippingId: number;
-  private updateUserShipping: boolean;
   private userShipping: UserShipping = new UserShipping();
   private userShippingList: UserShipping[];
 
+  private userPayment: UserPayment = new UserPayment();
+  private userBilling: UserBilling = new UserBilling();
+  private userPaymentList: UserPayment[];
+  private defaultPaymentSet:  boolean;
+  private defaultUserPaymentId: number;
 
-  constructor(private userService: UserService, private loginService: LoginService, private router: Router, private shippingService: ShippingService) { }
 
-    onUpdateUserInfo() {
-    this.userService.onUpdateUserInfo(this.user, this.newPassword, this.currentPassword).subscribe(
-      res => {
-        console.log(res);
-        this.updateSuccess = true;
-      },
-      error => {
-        console.log(error);
-        const errorMsg = error.error;
-        if (errorMsg === 'Incorrect current password') {
-          this.incorrectPassword = true;
+  constructor(private userService: UserService, private loginService: LoginService, private router: Router, private shippingService: ShippingService, private paymentService: PaymentService) { }
+
+  onUpdateUserInfo() {
+  this.userService.onUpdateUserInfo(this.user, this.newPassword, this.currentPassword).subscribe(
+    res => {
+      console.log(res);
+      this.updateSuccess = true;
+    },
+    error => {
+      console.log(error);
+      const errorMsg = error.error;
+      if (errorMsg === 'Incorrect current password') {
+        this.incorrectPassword = true;
+      }
+    }
+  );
+  }
+
+  getCurrentUser() {
+  this.userService.getCurrentUser().subscribe(
+    res => {
+      this.user = res;
+      this.getUserShippingList();
+      this.getUserPaymentList();
+
+      for (let index in this.userShippingList) {
+        if(this.userShippingList[index].defaultShipping === true) {
+          this.defaultShippingId = this.userShippingList[index].id;
+          break;
         }
       }
-    );
-    }
 
-    getCurrentUser() {
-    this.userService.getCurrentUser().subscribe(
-      res => {
-        this.user = res;
-        this.dataFetched = true;
-      },
-      error => {
-        console.log(error);
+      for (let index in this.userPaymentList) {
+        if(this.userPaymentList[index].defaultPayment) {
+          this.defaultUserPaymentId = this.userPaymentList[index].id;
+          break;
+        }
       }
-    );
+      this.dataFetched = true;
+    },
+    error => {
+      console.log(error);
     }
+  );
+  }
 
-    selectedShippingChange(val: number) {
-    this.selectedShippingTab = val;
-    }
+  selectedShippingChange(val: number) {
+  this.selectedShippingTab = val;
+  }
+
+  selectedBillingChange(val: number) {
+    this.selectedBillingTab = val;
+  }
 
 
   onNewShipping() {
     this.shippingService.newShipping(this.userShipping).subscribe(
       res => {
         this.getCurrentUser();
-        this.getShippingList();
         this.selectedShippingTab = 0;
       },
       error => {
@@ -80,7 +108,7 @@ export class MyProfileComponent implements OnInit {
     );
   }
 
-  getShippingList() {
+  getUserShippingList() {
     this.shippingService.getShippingList().subscribe(
       res => {
         this.userShippingList = res;
@@ -91,6 +119,7 @@ export class MyProfileComponent implements OnInit {
     );
   }
 
+
   onUpdateShipping(shipping: UserShipping) {
     this.userShipping = shipping;
     this.selectedShippingTab = 1;
@@ -100,7 +129,6 @@ export class MyProfileComponent implements OnInit {
     this.shippingService.remove(id).subscribe(
       res => {
         this.getCurrentUser();
-        this.getShippingList();
       },
       error => {
         console.log(error);
@@ -121,12 +149,68 @@ export class MyProfileComponent implements OnInit {
     );
   }
 
+  onNewPayment() {
+    this.paymentService.newUserPayment(this.userPayment).subscribe(
+      res => {
+        this.getCurrentUser();
+        this.selectedBillingTab = 0;
+        this.userPayment = new UserPayment();
+      },
+      error => {
+        console.log(error);
+      }
+    );
+  }
+
+  getUserPaymentList() {
+    this.paymentService.getUserPaymentList().subscribe(
+      res => {
+        this.userPaymentList = res;
+      },
+      error => {
+        console.log(error);
+      }
+    );
+  }
+
+
+  onUpdatePayment (payment: UserPayment) {
+    this.userPayment = payment;
+    this.userBilling = payment.userBilling;
+    this.selectedBillingTab = 1;
+  }
+
+  onRemovePayment(id: number) {
+    this.paymentService.remove(id).subscribe(
+      res => {
+        this.getCurrentUser();
+      },
+      error => {
+        console.log(error);
+      }
+    );
+  }
+
+  setDefaultPayment() {
+    this.defaultPaymentSet = false;
+    this.paymentService.setDefaultUserPayment(this.defaultUserPaymentId).subscribe(
+      res => {
+        this.getCurrentUser();
+        this.defaultPaymentSet = true;
+      },
+      error => {
+        console.log(error);
+      }
+    );
+  }
+
 
   ngOnInit() {
     this.loginService.checkSessoin().subscribe(
       res => {
         this.loggedIn = true;
-        this.getShippingList();
+        this.getUserShippingList();
+        this.getUserPaymentList();
       },
       error => {
         console.log(error);
@@ -136,6 +220,13 @@ export class MyProfileComponent implements OnInit {
     );
 
     this.getCurrentUser();
+
+    this.userPayment.type = '';
+    this.userPayment.expiryMonth =  '';
+    this.userPayment.expiryYear = '';
+    this.userPayment.userBilling = this.userBilling;
+    this.defaultPaymentSet = false;
+    this.defaultShippingSet = false;
   }
 
 }

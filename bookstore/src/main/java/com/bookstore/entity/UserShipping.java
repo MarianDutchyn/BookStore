@@ -12,7 +12,7 @@ public class UserShipping {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
-    private String reciverName;
+    private String receiverName;
     private String street;
     private String city;
     private Boolean defaultShipping;
@@ -30,11 +30,11 @@ public class UserShipping {
     }
 
     public String getReciverName() {
-        return reciverName;
+        return receiverName;
     }
 
     public void setReciverName(String recoverName) {
-        this.reciverName = recoverName;
+        this.receiverName = recoverName;
     }
 
     public String getStreet() {
