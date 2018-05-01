@@ -55,6 +55,11 @@ public class CartItemServiceImpl implements CartItemService {
     }
 
     @Override
+    public List<CartItem> findByOrder(Order order) {
+        return cartItemRepository.findByOrder(order);
+    }
+
+    @Override
     public CartItem updateCartItem(CartItem cartItem) {
         BigDecimal bigDecimal = new BigDecimal(cartItem.getBook().getOurPrice()).multiply(new BigDecimal(cartItem.getQuantity()));
         bigDecimal = bigDecimal.setScale(2, BigDecimal.ROUND_HALF_UP);

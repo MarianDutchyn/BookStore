@@ -20,15 +20,14 @@ public class User implements UserDetails, Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
-
     private String username;
     private String password;
     private String firstName;
     private String lastName;
-
     private String email;
     private String phone;
     private boolean enabled = true;
+
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     @JsonIgnore
     private Set<UserRole> userRoles = new HashSet<>();
@@ -42,6 +41,10 @@ public class User implements UserDetails, Serializable {
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "user")
     @JsonIgnore
     private List<UserPayment> userPaymentList;
+
+    @OneToMany(mappedBy = "user")
+    @JsonIgnore
+    private List<Order> orderList;
 
     public int getId() {
         return id;
@@ -135,6 +138,14 @@ public class User implements UserDetails, Serializable {
 
     public void setUserPaymentList(List<UserPayment> userPaymentList) {
         this.userPaymentList = userPaymentList;
+    }
+
+    public List<Order> getOrderList() {
+        return orderList;
+    }
+
+    public void setOrderList(List<Order> orderList) {
+        this.orderList = orderList;
     }
 
     @Override

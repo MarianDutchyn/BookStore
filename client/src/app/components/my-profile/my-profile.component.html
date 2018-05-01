@@ -115,7 +115,7 @@
                         <input hidden="hidden" name="id" [(ngModel)]="userShipping.id" />
                         <div class="form-group">
                           <label for="shippingname">* Name</label>
-                          <input type="text" class="form-control" id="shippingName" placeholder="Receiver Name" name="userShippingName" required="required" [(ngModel)]="userShipping.reciverName" />
+                          <input type="text" class="form-control" id="shippingName" placeholder="Receiver Name" name="userShippingName" required="required" [(ngModel)]="userShipping.receiverName" />
                         </div>
                         <div class="form-group">
                           <label for="shippingAddress">* Street Address</label>
@@ -274,6 +274,84 @@
                       </form>
                     </mat-tab>
                   </mat-tab-group>
+                </div>
+              </mat-tab>
+              <mat-tab label="Orders">
+                <table class="table table-sm table-inverse">
+                  <thead>
+                  <tr>
+                    <th>Order Date</th>
+                    <th>Order Number</th>
+                    <th>Total</th>
+                    <th>Status</th>
+                  </tr>
+                  </thead>
+                  <tbody>
+                  <tr *ngFor="let order of orderList">
+                    <td>
+                      <a class="pointer" (click)="onDisplayOrder(order)"><span
+                      >{{order.orderDate}}</span></a>
+                    </td>
+                    <td>{{order.id}}</td>
+                    <td>{{order.orderTotal}}</td>
+                    <td>{{order.orderStatus}}</td>
+                  </tr>
+                  </tbody>
+                </table>
+                <div *ngIf="displayOrderDetail">
+                  <div class="row">
+                    <div class="col-12">
+                      <div class="text-center">
+                        <h2>Order Detail for purchase #<span>{{order.id}}</span></h2>
+                      </div>
+                      <hr/>
+                      <div class="row">
+                        <div class="col-4">
+                          <div>
+                            <div><strong>Billing Details</strong>
+                            </div>
+                            <div>
+                              <span>{{order.billingAddress.billingAddressName}}</span>
+                              <br/>
+                              <span>{{order.billingAddress.billingAddressStreet}}</span>
+                              <br/>
+                              <span>{{order.billingAddress.billingAddressCity}}</span>
+                              <br/>
+                            </div>
+                          </div>
+                        </div>
+                        <div class="col-4">
+                          <div class="panel panel-default height">
+                            <div class="panel-heading"><strong>Payment Information</strong>
+                            </div>
+                            <div class="panel-body">
+                              <span>{{order.payment.holderName}}</span>
+                              <br/> Visa
+                              <br/>
+                              <span>{{order.payment.cardNumber}}</span>
+                              <br/>
+                              <span>Exp Date:</span> <span>{{order.payment.expiryMonth}}</span>/<span>{{order.payment.expiryYear}}</span>
+                              <br/>
+                            </div>
+                          </div>
+                        </div>
+                        <div class="col-4">
+                          <div>
+                            <div><strong>Shipping Address</strong>
+                            </div>
+                            <div>
+                              <span>{{order.shippingAddress.receiverName}}</span>
+                              <br/>
+                              <span>{{order.shippingAddress.street}}</span>
+                              <br/>
+                              <span>{{order.shippingAddress.city}}</span>
+                              <br/>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
                 </div>
               </mat-tab>
             </mat-tab-group>

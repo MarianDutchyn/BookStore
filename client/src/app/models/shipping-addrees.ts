@@ -1,7 +1,6 @@
-export class UserShipping {
+export class ShippingAddrees {
   public id: number;
   public receiverName: string;
   public street: string;
   public city: string;
-  public defaultShipping: boolean;
 }

@@ -1,0 +1,30 @@
+<div class="container">
+  <div class="row">
+    <div class="col-12" style="background-image: url(../../../assets/image/wood.png);">
+      <h2 class="section-headline"><span>Home</span></h2>
+      <img src="../../../assets/image/logo.png" class="rounded float-left" style="padding: 0%; z-index:1;" />
+    </div>
+  </div>
+  <div class="row" style="margin-top: 100px;">
+    <div class="col-12">
+      <div class="alert alert-success">
+        <h3><i class="fa fa-check" style="color:limegreen;"></i> Thank you, your order has been placed. </h3>
+      </div>
+    </div>
+    <hr>
+    <div class="row" *ngFor="let cartItem of cartItemList">
+      <hr/>
+      <div class="col-3">
+        <a mat-button (click)="onSelect(cartItem.book)"><img class="img-fluid" [src]="'http://localhost:8080/image/book/'+cartItem.book.id+'.png'" style="width:70px;" /></a>
+      </div>
+      <div class="col-9">
+        <a class="pointer" (click)="onSelect(cartItem.book)">
+          <h4>{{cartItem.book.title}}</h4></a>
+        <p *ngIf="cartItem.book.inStockNumber > 10" style="color:green;">In Stock</p>
+        <p *ngIf="cartItem.book.inStockNumber < 10 && cartItem.book.inStockNumber > 0" style="color:green;">Only <span>{{cartItem.book.inStockNumber}}</span> In Stock</p>
+        <p *ngIf="cartItem.book.inStockNumber == 0" style="color:darkred;">Product Unavailable</p>
+      </div>
+
+    </div>
+  </div>
+</div>

@@ -1,6 +1,6 @@
-import {UserBilling} from './user-billing';
+import {BillingAddress} from "./billing-address";
 
-export class UserPayment {
+export class Payment {
   public id: number;
   public type: string;
   public cardName: string;
@@ -10,5 +10,5 @@ export class UserPayment {
   public cvc: number;
   public holderName: string;
   public defaultPayment: boolean;
-  public userBilling: UserBilling;
+  public userBilling: BillingAddress;
 }

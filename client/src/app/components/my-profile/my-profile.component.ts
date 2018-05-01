@@ -9,6 +9,9 @@ import {ShippingService} from '../../services/shipping.service';
 import {UserPayment} from '../../models/user-payment';
 import {UserBilling} from '../../models/user-billing';
 import {PaymentService} from "../../services/payment.service";
+import {Order} from "../../models/order";
+import {OrderService} from "../../services/order.service";
+import {CartItem} from "../../models/cart-item";
 
 @Component({
   selector: 'app-my-profile',
@@ -40,8 +43,13 @@ export class MyProfileComponent implements OnInit {
   private defaultPaymentSet:  boolean;
   private defaultUserPaymentId: number;
 
+  private cartItemList: any [];
+  private orderList: Order[] = [];
+  private order: Order = new Order();
+  private displayOrderDetail: boolean;
 
-  constructor(private userService: UserService, private loginService: LoginService, private router: Router, private shippingService: ShippingService, private paymentService: PaymentService) { }
+
+  constructor(private userService: UserService, private loginService: LoginService, private router: Router, private shippingService: ShippingService, private paymentService: PaymentService, private orderService: OrderService) { }
 
   onUpdateUserInfo() {
   this.userService.onUpdateUserInfo(this.user, this.newPassword, this.currentPassword).subscribe(
@@ -204,6 +212,11 @@ export class MyProfileComponent implements OnInit {
     );
   }
 
+  onDisplayOrder(order: Order) {
+    this.order = order;
+    this.displayOrderDetail = true;
+  }
+
 
   ngOnInit() {
     this.loginService.checkSessoin().subscribe(
@@ -220,6 +233,15 @@ export class MyProfileComponent implements OnInit {
     );
 
     this.getCurrentUser();
+
+    this.orderService.getOrderList().subscribe(
+      res => {
+        this.orderList = res;
+      },
+      error => {
+        console.log(error);
+      }
+    );
 
     this.userPayment.type = '';
     this.userPayment.expiryMonth =  '';

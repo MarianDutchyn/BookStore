@@ -11,7 +11,9 @@
         <div class="col-6 text-left">
           <a mat-raised-button class="mat-warn" routerLink="/bookList">Continue Shopping</a>
         </div>
-        <div class="col-6 text-right"></div>
+        <div class="col-6 text-right">
+          <a mat-raised-button class="mat-warn" routerLink="/checkout">Checkout</a>
+        </div>
       </div>
       <br/>
       <div *ngIf="cartItemUpdated" class="alert alert-success">
@@ -45,7 +47,7 @@
           <p *ngIf="cartItem.book.inStockNumber > 10" style="color:green;">In Stock</p>
           <p *ngIf="cartItem.book.inStockNumber < 10 && cartItem.book.inStockNumber > 0" style="color:green;">Only <span>{{cartItem.book.inStockNumber}}</span> In Stock</p>
           <p *ngIf="cartItem.book.inStockNumber == 0" style="color:darkred;">Product Unavailable</p>
-          <a class="pointer" (click)="onRemoveCartItem(cartItem)">delete</a>
+          <a class="pointer mat-warn" mat-raised-button (click)="onRemoveCartItem(cartItem)">Delete</a>
         </div>
         <div class="col-2">
           <h5 style="color:#db3208; font-size:large;">$<span [ngClass]="{'text-strike': cartItem.book.inStockNumber == 0}">{{cartItem.book.ourPrice}}</span>

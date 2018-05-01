@@ -7,10 +7,9 @@ import {ShoppingCart} from '../models/shopping-cart';
 
 @Injectable()
 export class CartService {
+  private serverPath = AppConst.serverPath;
 
   constructor(private http: HttpClient) { }
-
-  private serverPath = AppConst.serverPath;
 
   addItem(bookId: number, quantity: number) {
     let url = this.serverPath+"/cart/add";

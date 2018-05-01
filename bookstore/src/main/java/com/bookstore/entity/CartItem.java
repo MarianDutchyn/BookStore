@@ -28,6 +28,10 @@ public class CartItem implements Serializable {
     @JsonIgnore
     private ShoppingCart shoppingCart;
 
+    @ManyToOne
+    @JsonIgnore
+    private Order order;
+
     public int getId() {
         return id;
     }
@@ -75,4 +79,14 @@ public class CartItem implements Serializable {
     public void setBookToCartItems(List<BookToCartItem> bookToCartItems) {
         this.bookToCartItems = bookToCartItems;
     }
+
+    public Order getOrder() {
+        return order;
+    }
+
+    public void setOrder(Order order) {
+        this.order = order;
+    }
 }
+
+

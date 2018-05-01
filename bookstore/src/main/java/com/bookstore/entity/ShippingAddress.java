@@ -1,13 +1,12 @@
 package com.bookstore.entity;
-
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
+import java.io.Serializable;
 
 @Entity
-public class UserShipping {
-
-    public static final long serialVervionUID = 443655L;
+public class ShippingAddress implements Serializable {
+    public static final long serialVersionUID = 5454887L;
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -15,11 +14,10 @@ public class UserShipping {
     private String receiverName;
     private String street;
     private String city;
-    private Boolean defaultShipping;
-    @ManyToOne
-    @JsonIgnore
-    private User user;
 
+    @OneToOne
+    @JsonIgnore
+    private Order order;
 
     public int getId() {
         return id;
@@ -53,19 +51,11 @@ public class UserShipping {
         this.city = city;
     }
 
-    public Boolean getDefaultShipping() {
-        return defaultShipping;
+    public Order getOrder() {
+        return order;
     }
 
-    public void setDefaultShipping(Boolean defaultShipping) {
-        this.defaultShipping = defaultShipping;
-    }
-
-    public User getUser() {
-        return user;
-    }
-
-    public void setUser(User user) {
-        this.user = user;
+    public void setOrder(Order order) {
+        this.order = order;
     }
 }

@@ -42,8 +42,7 @@ public class ShoppingCartServiceimpl implements ShoppingCartService {
         List<CartItem> cartItemList = cartItemService.findByShoppingCart(shoppingCart);
 
         for (CartItem cartItem: cartItemList) {
-            cartItem.setSubTotal(null);
-            cartItemService.save(cartItem);
+            cartItemService.removeCartItem(cartItem);
         }
 
         shoppingCart.setTotal(new BigDecimal(0));
