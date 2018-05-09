@@ -6,9 +6,7 @@ Spring Boot + Angular 5
 
 ![screenshot-2018-5-9 client](https://user-images.githubusercontent.com/20208821/39831326-c6772ede-53cc-11e8-8293-d3d71b1ea269.png)
 ***
-![screenshot-2018-5-9 client 2](https://user-images.githubusercontent.com/20208821/39832151-1e94327c-53cf-11e8-9cea-b26aaf9d511e.png)
-***
-![screenshot-2018-5-9 client 1](https://user-images.githubusercontent.com/20208821/39832222-473b4a8a-53cf-11e8-8043-c966f2a9a182.png)
+![screenshot-2018-5-9 client 1](https://user-images.githubusercontent.com/20208821/39836441-09547c98-53dc-11e8-87d8-a6fe093ba4c1.png)
 ***
 ![screenshot-2018-5-9 client 8](https://user-images.githubusercontent.com/20208821/39832303-85600f1c-53cf-11e8-8773-4e36153260d8.png)
 ***
