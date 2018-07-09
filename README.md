@@ -1,6 +1,6 @@
 ## Online BookStore
 
-Spring Boot + Angular 5
+The Bookstore application implemented with Java, Spring Boot, JavaScript, Angular, Bootstrap, Mysql, JPA in which user can look out and buy those books if they want.
 
 ## The Client-Side
 
